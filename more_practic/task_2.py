@@ -1,5 +1,4 @@
 from datetime import date
-
 class Person:
     def __init__(self, name:str, country:str, data_of_birth:date):
         self.name = name
