@@ -45,12 +45,17 @@ class Record:
         else:
             raise ValueError('Phone not found')
 
-    def edit_phone(self, old_phone: str, new_phone: str) -> None:
-        for p in self.phones:
-            if p.value == old_phone:
-                p.value = new_phone
-                return
-        raise ValueError("Old phone not found")
+    def edit_phone(self, old_phone: str, new_phone: str):
+    try:
+        new_phone_obj = Phone(new_phone)
+    except ValidatePhone:
+        raise ValueError("New phone number is invalid")
+
+    for index, p in enumerate(self.phones):
+        if p.value == old_phone:
+            self.phones[index] = new_phone_obj
+            return
+    raise ValueError("Old phone not found")
 
     def find_phone(self, phone: str) -> Optional[Phone]:
         if not self.phones:
