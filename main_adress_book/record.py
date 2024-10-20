@@ -29,11 +29,16 @@ class Record:
         return f"Contact name: {self.name}, Phones: {phones}"
     
     def edit_phone(self, old_phone: str, new_phone: str):
-        for index, p in enumerate(self.phones):
-            if p.value == old_phone:
-                self.phones[index] = Phone(new_phone)
-                return
-        raise ValueError("Old phone not found")
+    try:
+        new_phone_obj = Phone(new_phone)
+    except ValidatePhone:
+        raise ValueError("New phone number is invalid")
+
+    for index, p in enumerate(self.phones):
+        if p.value == old_phone:
+            self.phones[index] = new_phone_obj
+            return
+    raise ValueError("Old phone not found")
     
     def phone_info(self):
         for item in self.phones:
