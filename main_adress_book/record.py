@@ -34,11 +34,11 @@ class Record:
         except ValidatePhone:
             raise ValueError("New phone number is invalid")
 
-    for index, p in enumerate(self.phones):
-        if p.value == old_phone:
-            self.phones[index] = new_phone_obj
-            return
-    raise ValueError("Old phone not found")
+        for index, p in enumerate(self.phones):
+            if p.value == old_phone:
+                self.phones[index] = new_phone_obj
+                return
+        raise ValueError("Old phone not found")
     
     def phone_info(self):
         for item in self.phones:
