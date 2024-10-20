@@ -29,8 +29,8 @@ class TestAddressBook(unittest.TestCase):
 
     def test_add_phone(self):
         self.record.add_phone("0987654321")
-        self.assertEqual(len(self.record.phone), 2)
-        self.assertEqual(self.record.phone[1].value, "0987654321")
+        self.assertEqual(len(self.record.phones), 2)
+        self.assertEqual(self.record.phones[1].value, "0987654321")
 
     def test_add_existing_phone(self):
         with self.assertRaises(ValueError) as e:
@@ -39,7 +39,7 @@ class TestAddressBook(unittest.TestCase):
 
     def test_remove_phone(self):
         self.record.remove_phone("1234567890")
-        self.assertEqual(len(self.record.phone), 0)
+        self.assertEqual(len(self.record.phones), 0)
 
     def test_remove_phone_not_found(self):
         with self.assertRaises(ValueError) as e:
@@ -48,7 +48,7 @@ class TestAddressBook(unittest.TestCase):
 
     def test_edit_phone(self):
         self.record.edit_phone("1234567890", "0987654321")
-        self.assertEqual(self.record.phone[0].value, "0987654321")
+        self.assertEqual(self.record.phones[0].value, "0987654321")
 
     def test_edit_phone_not_found(self):
         with self.assertRaises(ValueError) as e:

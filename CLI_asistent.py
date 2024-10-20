@@ -29,39 +29,39 @@ class Phone(Field):
 class Record:
     def __init__(self, name: str) -> None:
         self.name = Name(name)
-        self.phone: list[Phone] = []
+        self.phones: list[Phone] = []
 
     def add_phone(self, phone: str) -> None:
         '''add phone, if phone not in contact'''
         if not self.find_phone(phone):
-            self.phone.append(Phone(phone))
+            self.phones.append(Phone(phone))
         else:
             raise ValueError(f"Phone {phone} already exists in contact")
 
     def remove_phone(self, phone: str) -> None:
         phone_to_remove = self.find_phone(phone)
         if phone_to_remove:
-            self.phone.remove(phone_to_remove)
+            self.phones.remove(phone_to_remove)
         else:
             raise ValueError('Phone not found')
 
     def edit_phone(self, old_phone: str, new_phone: str) -> None:
-        for p in self.phone:
+        for p in self.phones:
             if p.value == old_phone:
                 p.value = new_phone
                 return
         raise ValueError("Old phone not found")
 
     def find_phone(self, phone: str) -> Optional[Phone]:
-        if not self.phone:
+        if not self.phones:
             return None
-        for p in self.phone:
+        for p in self.phones:
             if p.value == phone:
                 return p
-        return None
+        return None 
 
     def __str__(self):
-        phones = ", ".join([str(phone) for phone in self.phone])
+        phones = ", ".join([str(phone) for phone in self.phones])
         return f"Contact name: {self.name}, Phones: {phones}"
 
 
