@@ -32,10 +32,18 @@ class Record:
         self.phone: list[Phone] = []
 
     def add_phone(self, phone: str) -> None:
-        self.phone.append(Phone(phone))
+        '''add phone, if phone not in contact'''
+        if not self.find_phone(phone):
+            self.phone.append(Phone(phone))
+        else:
+            raise ValueError(f"Phone {phone} already exists in contact")
 
     def remove_phone(self, phone: str) -> None:
-        self.phone = [p for p in self.phone if p.value != phone]
+        phone_to_remove = self.find_phone(phone)
+        if phone_to_remove:
+            self.phone.remove(phone_to_remove)
+        else:
+            raise ValueError('Phone not found')
 
     def edit_phone(self, old_phone: str, new_phone: str) -> None:
         for p in self.phone:
@@ -45,6 +53,8 @@ class Record:
         raise ValueError("Old phone not found")
 
     def find_phone(self, phone: str) -> Optional[Phone]:
+        if not self.phone:
+            return None
         for p in self.phone:
             if p.value == phone:
                 return p
@@ -61,11 +71,10 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
 
     def find(self, name: str) -> Optional[Record]:
-        return self.data.get(name)
+        return self.data.get(name,None)
 
     def delete(self, name: str) -> None:
-        if name in self.data:
-            del self.data[name]
+        self.data.pop(name, None)
 
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values())
