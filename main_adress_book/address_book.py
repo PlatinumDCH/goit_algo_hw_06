@@ -15,6 +15,7 @@ class AddressBook(UserDict):
             del record
 
     def delete_and_cleanup(self, name: str) -> None:
+        '''delete all link'''
         record = self.data.pop(name, None)
         if record:
             record.name = None
